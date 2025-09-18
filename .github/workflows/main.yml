@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # Trigger on push to the main branch
+      - main  # Trigger the action on push to main branch
 
 jobs:
   build:
@@ -14,15 +14,15 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '14'  # Adjust to your Node.js version
 
       - name: Install dependencies
         run: npm install
 
       - name: Build the project
-        run: npm run build  # Or adjust this if you're using a different build command
+        run: npm run build  # Ensure this matches your build script
 
       - name: Deploy to GitHub Pages
-        run: npx gh-pages -d dist  # Adjust the output folder if needed
+        run: npx gh-pages -d dist  # Adjust if your build output directory is different
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
