@@ -1,12 +1,14 @@
 name: Deploy to GitHub Pages
+
 on:
   push:
     branches:
-      - main  # Trigger the action on push to main branch
+      - gh-pages # Trigger the deployment on push to the main branch
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -14,15 +16,18 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'  # Adjust to your Node.js version
+          node-version: '14'  # You can specify a different version if needed
 
       - name: Install dependencies
         run: npm install
 
       - name: Build the project
-        run: npm run build  # Ensure this matches your build script
+        run: npm run build  # This should create the dist folder
+
+      - name: List files (for debugging)
+        run: ls -la dist  # Make sure dist folder is generated
 
       - name: Deploy to GitHub Pages
-        run: npx gh-pages -d dist  
+        run: npm run deploy  # This will run the gh-pages deployment
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # This is needed for the deployment to work
