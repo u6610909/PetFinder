@@ -20,9 +20,11 @@ jobs:
         run: npm install
 
       - name: Build the project
-        run: npm run build  # Or adjust this if you're using a different build command
+        run: |
+          npm run build
+          ls -la dist  # List the files in the dist directory to confirm it's being created
 
       - name: Deploy to GitHub Pages
-        run: npx gh-pages -d dist  # Adjust the output folder if needed
+        run: npx gh-pages -d dist  # Adjust if the output folder is different
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
